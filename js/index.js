@@ -1,57 +1,56 @@
-//Formas de acceder a los Elementos//
-// const carrito = document.querySelector("#carrito");//Con querySelector puedes acceder a clases y Ids
-// console.log(carrito);
+document.addEventListener("DOMContentLoaded",()=>{ 
+    const carrito = document.getElementById('carro')
+    let count = 0;
+    const lista_carrito = document.getElementById('lista-carrito')
+    console.log(lista_carrito);
+    let totalcarrito = []
+    const buttons = document.querySelectorAll('.card .btn')
+    buttons.forEach((button)=>{
+        button.addEventListener('click',(e)=>{
+            e.preventDefault()
+            const carrito_count = document.getElementsByClassName('carrito-count')[0]
+            console.log(carrito_count);
+    
+            count++
+            carrito_count.textContent = count
+            const data = e.target.closest('.card')
+            leerdatos(data)
+        })
 
-// const carrito = document.getElementById("carrito");
+        function leerdatos(producto){ 
+            const infoProducto ={
+                imagen: producto.querySelector('img').src,
+                titulo: producto.querySelector('h3').textContent,
+                precio: parseInt(producto.querySelector('.btn').textContent),
+                id: producto.querySelector('a').getAttribute('data-id'),
+                cantidad: 1,
+        }
 
-// const carrito = document.getElementsByTagName('span')
-// console.log(carrito);
+        const existe = totalcarrito.some(producto=>{producto.id == infoProducto})
+        if(existe){
+            totalcarrito = totalcarrito.map((producto)=>{
+                if (producto.id === infoProducto.id) {
+                    producto.cantidad++
+                    console.log(producto)
+                }
+                return producto
+            })
+        }else{ 
+            totalcarrito.push(infoProducto);
+            console.log(totalcarrito);
+        }
 
-//Eventos de javascript
-//Eventos del mouse
-//Listeners: Es poner algo 
-//Evento click
-document.addEventListener('DOMContentLoaded', ()=>{
-  const lista_carrito = document.getElementById('lista-carrito');
-  console.log(lista_carrito);
-  let totalCarrito = [];
-  const buttons = document.querySelectorAll('.btn');
-  buttons.forEach( (button)=>{
-    button.addEventListener('click', (e)=>{      
-      e.preventDefault();
-      //Esto se llama el traversing deldom
-      const data = e.target.closest('.Producto')//el closest busca la clase mas cercana      
-      leerDatos(data)
-    //  cargarProductos(data)  
+        }
+            carrito.addEventListener('mouseover',(e)=>{
+            
+        })
+         
+   
+        })
+        
+        
     })
 
-   function leerDatos(producto){
-
-    const infoProducto = {
-      imagen : producto.querySelector('img').src,
-      titulo : producto.querySelector('h5').textContent, //es el contenido del texto
-      precio : parseInt(producto.querySelector('.precio').textContent),//parseint es para convertir texto a numero
-      id : producto.querySelector('a').getAttribute('data-id')
-    }
-
-    console.log(infoProducto);
-
-
-    
-    
-    
-
-   }
-
-  
-  })
-  
-  
-
-
-  
-
-})   
 
 
 
